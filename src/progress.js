@@ -80,3 +80,45 @@ function ajouterApprenant(id, name, city) {
 }
 
 
+function rechercherApprenant(recherche) {
+
+    const rechercheNormalisee = normaliserNom(recherche);
+
+    const resultats = studentsData.filter(function (student) {
+        return normaliserNom(student.name).includes(rechercheNormalisee);
+    });
+
+    return resultats;
+}
+
+
+
+function calculerProgression(id) {
+
+    const student = studentsData.find(function (student) {
+        return student.id === id;
+    });
+
+    if (!student) {
+        return 0;
+    }
+
+    let exercicesTermines = 0;
+    let totalExercices = 0;
+
+    for (let result of student.results) {
+        exercicesTermines += result.exercicesTermines;
+        totalExercices += result.totalExercices;
+    }
+
+    if (totalExercices === 0) {
+        return 0;
+    }
+
+    const progression = (exercicesTermines / totalExercices) * 100;
+
+    return progression;
+}
+
+
+
