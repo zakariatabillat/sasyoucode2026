@@ -120,5 +120,43 @@ function calculerProgression(id) {
     return progression;
 }
 
+function filtrerParNiveau(niveau) {
+
+    const resultats = [];
+
+    for (let student of studentsData) {
+
+        const progression = calculerProgression(student.id);
+
+        let niveauStudent;
+
+        if (progression >= 80) {
+            niveauStudent = "Solid";
+        } else if (progression >= 50) {
+            niveauStudent = "In Progress";
+        } else {
+            niveauStudent = "Needs Reinforcement";
+        }
+
+        if (niveauStudent === niveau) {
+            resultats.push(student);
+        }
+    }
+
+    return resultats;
+}
+
+
+function trierParProgression(students) {
+
+    const resultat = [...students];
+
+    resultat.sort(function (a, b) {
+        return calculerProgression(b.id) - calculerProgression(a.id);
+    });
+
+    return resultat;
+}
+
 
 
